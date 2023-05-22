@@ -13,7 +13,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/macewan-cs/lti/datastore"
+	"github.com/astiusa/lti/datastore"
 )
 
 // RegistrationFields provides the database column names for fields in the datastore.Registration structure.

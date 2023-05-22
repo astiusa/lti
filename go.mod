@@ -1,4 +1,4 @@
-module github.com/macewan-cs/lti
+module github.com/astiusa/lti
 
 go 1.16
 

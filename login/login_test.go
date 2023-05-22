@@ -12,7 +12,7 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/macewan-cs/lti/datastore"
+	"github.com/astiusa/lti/datastore"
 )
 
 // Set up a test Registration.

@@ -11,9 +11,9 @@ import (
 	"net/http"
 	"net/url"
 
+	"github.com/astiusa/lti/datastore"
+	"github.com/astiusa/lti/datastore/nonpersistent"
 	"github.com/google/uuid"
-	"github.com/macewan-cs/lti/datastore"
-	"github.com/macewan-cs/lti/datastore/nonpersistent"
 )
 
 const (
@@ -51,6 +51,11 @@ func (l *Login) RedirectURI(r *http.Request) (string, http.Cookie, error) {
 		return "", http.Cookie{}, err
 	}
 
+	targetLinkUri, err := url.Parse(r.FormValue("target_link_uri"))
+	if err != nil {
+		return "", http.Cookie{}, err
+	}
+
 	// Generate state and state cookie.
 	state := "state-" + uuid.New().String()
 	stateCookie := http.Cookie{
@@ -67,7 +72,8 @@ func (l *Login) RedirectURI(r *http.Request) (string, http.Cookie, error) {
 
 	// Generate and store nonce.
 	nonce := uuid.New().String()
-	err = l.cfg.Nonces.StoreNonce(nonce, registration.TargetLinkURI.String())
+	//err = l.cfg.Nonces.StoreNonce(nonce, registration.TargetLinkURI.String())
+	err = l.cfg.Nonces.StoreNonce(nonce, targetLinkUri.String())
 	if err != nil {
 		return "", http.Cookie{}, err
 	}

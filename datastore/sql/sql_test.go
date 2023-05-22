@@ -11,7 +11,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/macewan-cs/lti/datastore"
+	"github.com/astiusa/lti/datastore"
 	_ "github.com/mlhoyt/ramsql/driver"
 )
 

@@ -18,9 +18,9 @@ import (
 	"github.com/google/uuid"
 	"github.com/lestrrat-go/jwx/jwk"
 	"github.com/lestrrat-go/jwx/jwt"
-	"github.com/macewan-cs/lti/datastore"
-	"github.com/macewan-cs/lti/datastore/nonpersistent"
-	"github.com/macewan-cs/lti/login"
+	"github.com/astiusa/lti/datastore"
+	"github.com/astiusa/lti/datastore/nonpersistent"
+	"github.com/astiusa/lti/login"
 )
 
 // A Launch implements an external application's role in the LTI specification's launch flow.

@@ -1,4 +1,4 @@
-# macewan-cs/lti
+# astiusa/lti
 
 [![GoDoc](https://godoc.org/github.com/macewan-cs/lti?status.svg)](https://godoc.org/github.com/macewan-cs/lti)
 
@@ -38,7 +38,7 @@ It simplifies integration with the LTI modified OIDC login flow, the tool launch
 
 ## Installation
 
-`go get github.com/macewan-cs/lti`
+`go get github.com/astiusa/lti`
 
 ## Project Status
 

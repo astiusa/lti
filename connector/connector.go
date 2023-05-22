@@ -23,12 +23,12 @@ import (
 	"strings"
 	"time"
 
+	"github.com/astiusa/lti/datastore"
+	"github.com/astiusa/lti/datastore/nonpersistent"
 	"github.com/google/uuid"
 	"github.com/lestrrat-go/jwx/jwa"
 	"github.com/lestrrat-go/jwx/jwk"
 	"github.com/lestrrat-go/jwx/jwt"
-	"github.com/macewan-cs/lti/datastore"
-	"github.com/macewan-cs/lti/datastore/nonpersistent"
 )
 
 var (
@@ -96,6 +96,15 @@ func New(cfg datastore.Config, launchID, keyID string) (*Connector, error) {
 // ClientID returns the client ID associated with the connector.
 func (c *Connector) ClientID() string {
 	return c.LaunchToken.Audience()[0]
+}
+
+// TargetLinkURI returns the Target Link URI associated with the container
+func (c *Connector) TargetLinkURI() string {
+	targetLinkUri, ok := c.LaunchToken.Get("https://purl.imsglobal.org/spec/lti/claim/target_link_uri")
+	if !ok {
+		return ""
+	}
+	return targetLinkUri.(string)
 }
 
 // SetSigningKey takes a PEM encoded private key and sets the signing key to the corresponding RSA private key.
@@ -327,7 +336,9 @@ func (c *Connector) makeServiceRequest(s ServiceRequest) (http.Header, io.ReadCl
 	}
 	request.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.AccessToken.Token))
 	request.Header.Set("Accept", s.Accept)
-	request.Header.Set("Content-Type", s.ContentType)
+	if s.ContentType != "" {
+		request.Header.Set("Content-Type", s.ContentType)
+	}
 
 	client := &http.Client{Timeout: timeout}
 	response, err := client.Do(request)

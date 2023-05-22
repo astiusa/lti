@@ -17,11 +17,11 @@ import (
 	"net/http"
 
 	"github.com/lestrrat-go/jwx/jwk"
-	"github.com/macewan-cs/lti/connector"
-	"github.com/macewan-cs/lti/datastore"
-	dssql "github.com/macewan-cs/lti/datastore/sql"
-	"github.com/macewan-cs/lti/launch"
-	"github.com/macewan-cs/lti/login"
+	"github.com/astiusa/lti/connector"
+	"github.com/astiusa/lti/datastore"
+	dssql "github.com/astiusa/lti/datastore/sql"
+	"github.com/astiusa/lti/launch"
+	"github.com/astiusa/lti/login"
 )
 
 // JSONWebKeySet provides configuration for a keyset handler implemented on this type. The ServeHTTP method is

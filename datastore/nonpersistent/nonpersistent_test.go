@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/macewan-cs/lti/datastore"
+	"github.com/astiusa/lti/datastore"
 )
 
 func TestNew(t *testing.T) {
