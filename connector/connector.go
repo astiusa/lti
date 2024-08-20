@@ -118,13 +118,19 @@ func (c *Connector) SetSigningKey(pemPrivateKey string) error {
 	if pemBlock == nil {
 		return errors.New("failed to decode PEM key block")
 	}
-	rsaPrivateKey, err := x509.ParsePKCS1PrivateKey(pemBlock.Bytes)
-	if err != nil {
-		return fmt.Errorf("failed to parse RSA key: %w", err)
+	if rsaPrivateKey, err := x509.ParsePKCS1PrivateKey(pemBlock.Bytes); err == nil {
+		c.SigningKey = rsaPrivateKey
+		return nil
 	}
-
+	privateKey, err := x509.ParsePKCS8PrivateKey(pemBlock.Bytes)
+	if err != nil {
+		return fmt.Errorf("failed to parse private key: %w", err)
+	}
+	rsaPrivateKey, ok := privateKey.(*rsa.PrivateKey)
+	if !ok {
+		return fmt.Errorf("failed to cast key as private key")
+	}
 	c.SigningKey = rsaPrivateKey
-
 	return nil
 }
 
